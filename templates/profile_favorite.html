@@ -1,9 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-
-        
 {% block content %}
- 
   <article class="media">
     <div class="media-left">
         <figure class="image is-256x256">
@@ -14,17 +11,13 @@
           {% endif %}
         </figure>
     </div>
-
      <div class="media-content">
-
       <div class="content">
           <h1 class="title is-1">@{{ profile.user }}</h1>
           <p class="subtitle is-3">{% if profile.first_name %}{{ profile.first_name }} {{ profile.last_name }}{% endif %}</p>
-
           <div class="media-right">
                 <a class="button is-success">Follow</a>
           </div>
-
           <br>
       </div>
           <nav class="level">
@@ -48,24 +41,17 @@
             </div>
           </nav>
           <p class="subtitle is-5">{% if profile.profile_info %}{{ profile.profile_info }}{% endif %}</p>
-          
         {% if user.is_authenticated and user == profile.user %}
           <a class="button is-info">Edit Profile</a>
         {% endif %}
-
       </div>
     </div>
   </article>
-             
-
     </div>
   </div>
 </section>
-
-
 <section class="section">
   <div class="container">
-
         <div class="tabs is-centered">
           <ul>
             <li>
@@ -84,12 +70,9 @@
             </li>
           </ul>
         </div>
-    
   </div>
   </section>
-
 <div class="columns is-multiline is-mobile">
-
 {% for post in posts %}
   <div class="column is-one-quarter">
   <div class="box">
@@ -99,9 +82,5 @@
   </div>
   </div>
 {% endfor %}
-
-  
-
 </div>
-
 {% endblock %}

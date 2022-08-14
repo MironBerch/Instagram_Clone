@@ -1,21 +1,13 @@
 {% extends 'base.html' %}
-
 {% load static %}
 {% load humanize %}
-
 {% block content %}
-
     <div class="columns is-mobile is-centered">
     <div class="column is-half">
-
-
 {% for notification in notifications %}
-
-
 {% if notification.notification_type == 2 %}
       <div class="notification">
       <a href="{% url 'delete-notification' notification.id %}" class="delete"></a>
-
       <article class="media">
   <figure class="media-left">
     <p class="image is-64x64">
@@ -35,22 +27,17 @@
         <strong><small>{{ notification.date|naturaltime }}</small></strong>
     </div>
   </div>
-
   <div class="media-right">
     <figure class="image is-128x128">
       <img src="{{ notification.post.picture.url }}">
   </figure>
   </div>
 </article>
-
       </div>
 {% endif %}
-
-
 {% if notification.notification_type == 3 %}
       <div class="notification">
       <a href="{% url 'delete-notification' notification.id %}" class="delete"></a>
-
       <article class="media">
   <figure class="media-left">
     <p class="image is-64x64">
@@ -69,18 +56,13 @@
         <strong><small>{{ notification.date|naturaltime }}</small></strong>
     </div>
   </div>
-
 </article>
-
       </div>
 {% endif %}
-
-
 <!-- FOR LIKE --->
 {% if notification.notification_type == 1 %}
       <div class="notification">
       <a href="{% url 'delete-notification' notification.id %}" class="delete"></a>
-
       <article class="media">
   <figure class="media-left">
     <p class="image is-64x64">
@@ -106,18 +88,10 @@
   </figure>
   </div>
 </article>
-
       </div>
 {% endif %}
-
-
 {% endfor %}
 <!-- FOR LIKES --->
-
-
-
     </div>
     </div>
-
-
 {% endblock %}

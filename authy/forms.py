@@ -26,10 +26,10 @@ def UniqueUser(value):
 
 
 class SignupForm(forms.ModelForm):
-	username = forms.CharField(widget=forms.TextInput(), max_length=30, required=True,)
-	email = forms.CharField(widget=forms.EmailInput(), max_length=100, required=True,)
-	password = forms.CharField(widget=forms.PasswordInput())
-	confirm_password = forms.CharField(widget=forms.PasswordInput(), required=True, label="Confirm your password.")
+	username = forms.CharField(widget=forms.TextInput(attrs={'class': 'input is-medium'}), max_length=30, required=True,)
+	email = forms.CharField(widget=forms.EmailInput(attrs={'class': 'input is-medium'}), max_length=100, required=True,)
+	password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'input is-medium'}))
+	confirm_password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'input is-medium'}), required=True, label="Confirm your password.")
 
 	class Meta:
 		model = User
@@ -54,9 +54,9 @@ class SignupForm(forms.ModelForm):
 
 class ChangePasswordForm(forms.ModelForm):
 	id = forms.CharField(widget=forms.HiddenInput())
-	old_password = forms.CharField(widget=forms.PasswordInput(), label="Old password", required=True)
-	new_password = forms.CharField(widget=forms.PasswordInput(), label="New password", required=True)
-	confirm_password = forms.CharField(widget=forms.PasswordInput(), label="Confirm new password", required=True)
+	old_password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'input is-medium'}), label="Old password", required=True)
+	new_password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'input is-medium'}), label="New password", required=True)
+	confirm_password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'input is-medium'}), label="Confirm new password", required=True)
 
 	class Meta:
 		model = User

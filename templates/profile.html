@@ -1,11 +1,7 @@
 {% extends 'base.html' %}
-
 {% load static %}
-
 {% block content %}
-
 <article class="media">
-
   <div class="media-left">
       <figure class="image is-256x256">
         {% if profile.picture %}
@@ -15,13 +11,10 @@
         {% endif %}
       </figure>
   </div>
-
    <div class="media-content">
-
     <div class="content">
       <h1 style="font-weight: bold;" class="title is-1">{% if profile.first_name %}{{ profile.first_name }} {{ profile.last_name }} {% endif %}</h1>
       <h2 class="subtitle is-3">@{{ profile.user }}</h2>
-
     {% if user.is_authenticated and user != profile.user %}
       <div class="media-right">
         {% if follow_status == True %}
@@ -31,10 +24,7 @@
         {% endif  %}
       </div>
     {% endif %}
-
     </div>
-
-
      <nav class="level is-mobile">
   <div class="level-item has-text-centered">
     <div>
@@ -55,50 +45,32 @@
     </div>
   </div>
 </nav>
-
 <p class="subtitle is-5">{% if profile.profile_info %}{{ profile.profile_info }}{% endif %}</p>
-
 {% if user.is_authenticated and user == profile.user %}
   <a href="{% url 'edit-profile' %}" class="button">Edit profile</a>
 {% endif %}
-
  </div>
-
 </article>
-
-
 </div>
 </div>
-
-
-
     </div>
   </section>
-
-
-
   <section class="section">
     <div class="container">
-
   <div class="tabs is-centered">
   <ul>
     <li class="{% if url_name == 'profile' %}is-active{% endif %}">
       <a href="{% url 'profile' profile.user %}"><i class="material-icons">dashboard</i>Posts</a>
     </li>
-
     <li class="{% if url_name == 'profilefavorites' %}is-active{% endif %}">
       <a href="{% url 'profilefavorites' profile.user %}"><i class="material-icons">save_alt</i>Saved</a>
     </li>
   </ul>
 </div>
-
-
     <div class="columns is-mobile is-multiline is-centered">
-      
     {% for post in posts %}
       <div class="column is-one-quarter">
         <div class="box">
-
   {% if post.content.first.file.name|slice:"-3:" == 'jpg' or post_item.content.first.file.name|slice:"-3:" == 'png' %}
     <figure class="image is-4by3">
       <a href="{{ post.get_absolute_url }}">
@@ -112,28 +84,15 @@
       </video>      
     </a>
   {% endif %}
-
-
-
-
     </div>
       </div>
     {% empty %}
       <br>
       <h3 class="title is-3">You do not have any post!</h3>
     {% endfor %}
-
-
-
       </div>
-
 </div>
 </div>
-
-
-
     </div>
   </section>
-
-
 {% endblock %}

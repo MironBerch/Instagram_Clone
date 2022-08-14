@@ -1,19 +1,13 @@
 {% extends 'base.html' %}
-
 {% load static %}
-
 {% block content %}
-
 <div class="columns is-mobile has-text-centered">
   <div class="column is-half is-offset-one-quarter">
-
     <div class="card">
     <div class="card-content">
-
     <form method="post" action="" enctype="multipart/form-data" role="form">
     {% csrf_token %}
     <h3 class="title is-1">New Story</h3>
-
             <div class="field">
               <p class="control has-icons-left">
               <label class="label is-medium">Choose your media</label>
@@ -23,7 +17,6 @@
           </span>
         </p>
           </div>
-
             <div class="field">
               <p class="control has-icons-left">
               <label class="label is-medium">Caption</label>
@@ -33,8 +26,6 @@
           </span>
         </p>
           </div>
-
-
       <div class="field">
       <p class="control">
         <button type="submit" name="action" class="button is-success">
@@ -42,15 +33,6 @@
         </button>
       </p>
     </div>
-
-
       </div>
 </div>
-
-
-
-
-
-
-
 {% endblock %}
