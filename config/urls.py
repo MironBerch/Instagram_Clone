@@ -7,6 +7,7 @@ from django.conf import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('user/', include('authy.urls')),
+    path('notifications/', include('notifications.urls')),
 ]
 
 if settings.DEBUG:
