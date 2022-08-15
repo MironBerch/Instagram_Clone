@@ -1,13 +1,12 @@
-
 from xml.etree.ElementTree import Comment
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from post.models import Stream, Post, Tag, Likes, PostFileContent
 from post.forms import NewPostForm
-#from stories.models import Story, StoryStream
-#from comment.models import Comment
-#from comment.forms import CommentForm
+from stories.models import Story, StoryStream
+from comment.models import Comment
+from comment.forms import CommentForm
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from authy.models import Profile
@@ -25,7 +24,7 @@ def index(request):
     template = loader.get_template('index.html')
     context = {
         'post_items': post_items,
-        #'post_items': stories,
+        'post_items': stories,
     }
     return HttpResponse(template.render(context))
     #return render(request, 'index.html', context)
@@ -97,3 +96,43 @@ def NewPost(request):
         'form': form,
     }
     return render(request, 'newpost.html', context)
+
+
+def tags(request, tag_slug):
+    tag = get_object_or_404(Tag, slug=tag_slug)
+    posts = Post.objects.filter(tags=tag).order_by('-posted')
+    template = loader.get_template('tag.html')
+    context = {
+        'posts': posts,
+        'tag': tag,
+    }
+    return HttpResponse(template.render(context, request))
+
+
+@login_required
+def like(request, post_id):
+    user = request.user
+    post = Post.objects.get(id=post_id)
+    current_likes = post.likes
+    liked = Likes.objects.filter(user=user, post=post).count()
+    if not liked:
+        like = Likes.objects.create(user=user, post=post)
+        current_likes = current_likes + 1
+    else:
+        like = Likes.objects.create(user=user, post=post)
+        current_likes = current_likes - 1
+
+    post.likes = current_likes
+    post.save()
+
+
+@login_required
+def favorite(request, post_id):
+    user = request.user
+    post = Post.objects.get(id=post_id)
+    profile = Profile.objects.get(user=user)
+    if profile.favorites.filter(id=post_id).exists():
+        profile.favorites.remove(post)
+    else:
+        profile.favorites.add(post)
+    return HttpResponseRedirect(reverse('postdetails', args=[post_id]))
