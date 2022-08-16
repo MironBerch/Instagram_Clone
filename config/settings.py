@@ -18,9 +18,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'authy',
-    'post',
     'comment',
     'notifications',
+    'post',
+    'stories',
 ]
 
 MIDDLEWARE = [
@@ -109,3 +110,5 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 LOGIN_REDIRECT_URL = 'login'
 LOGOUT_REDIRECT_URL = 'logout'
 LOGIN_URL='/user/login/'
+
+CELERY_BROKER_URL = 'amqp://localhost:5672'
