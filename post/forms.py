@@ -1,5 +1,5 @@
 from django import forms
-from post.models import Post, PostFileContent, post
+from post.models import Post
 from django.forms import ClearableFileInput
 
 

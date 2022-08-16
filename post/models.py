@@ -14,7 +14,7 @@ def user_directory_path(instance, filename):
 
 
 class Tag(models.Model):
-    title = models.CharFiled(max_length=75, verbose_name='Tag')
+    title = models.CharField(max_length=75, verbose_name='Tag')
     slug = models.SlugField(null=False, unique=True)
 
     class Meta:
@@ -98,7 +98,7 @@ class Likes(models.Model):
         notify = Notification(post=post, sender=sender, user=post.user, notification_type=1)
         notify.save()
 
-    def user_liked_post(sender, instance, *args, **kwargs):
+    def user_unlike_post(sender, instance, *args, **kwargs):
         like = instance
         post = like.post
         sender = like.user
