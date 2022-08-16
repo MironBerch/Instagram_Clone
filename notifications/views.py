@@ -6,7 +6,7 @@ from .models import Notification
 
 def ShowNOtifications(request):
     user = request.user
-    notifications = Notifications.objects.filter(user=user, is_seen=False).update(is_seen=True)
+    notifications = Notification.objects.filter(user=user, is_seen=False).update(is_seen=True)
     template = loader.get_template('notifications.html')
     context = {
         'notifications': notifications,
@@ -16,7 +16,7 @@ def ShowNOtifications(request):
 
 def DeleteNotification(request, noti_id):
     user = request.user
-    Notifications.objects.filter(id=noti_id, user=user).delete()
+    Notification.objects.filter(id=noti_id, user=user).delete()
     return redirect('show-notifications')
 
 
