@@ -20,7 +20,7 @@ class Message(models.Model):
         
         return sender_message
 
-    def get_message(user):
+    def get_messages(user):
         messages = Message.objects.filter(user=user).values('recipient').annotate(last=Max('date')).order_by('-last')
         users = []
         for message in messages:
