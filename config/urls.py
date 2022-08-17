@@ -15,6 +15,7 @@ urlpatterns = [
     path('<username>/', UserProfile, name='profile'),
     path('<username>/saved', UserProfile, name='profilefavorites'),
     path('<username>/follow/<option>', follow, name='follow'),
+
 ]
 
 if settings.DEBUG:
