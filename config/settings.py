@@ -19,6 +19,7 @@ INSTALLED_APPS = [
 
     'authy',
     'comment',
+    'direct',
     'notifications',
     'post',
     'stories',
