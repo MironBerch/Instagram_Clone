@@ -16,7 +16,7 @@ class Message(models.Model):
         sender_message.save()
 
         recipient_message = Message(user=to_user, sender=from_user, body=body, recipient=from_user)
-        sender_message.save()
+        recipient_message.save()
         
         return sender_message
 

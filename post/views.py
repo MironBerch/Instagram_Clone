@@ -24,7 +24,7 @@ def index(request):
     template = loader.get_template('index.html')
     context = {
         'post_items': post_items,
-        'post_items': stories,
+        'stories': stories,
     }
     return HttpResponse(template.render(context, request))
     #return render(request, 'index.html', context)
@@ -115,12 +115,12 @@ def like(request, post_id):
         like = Likes.objects.create(user=user, post=post)
         current_likes = current_likes + 1
     else:
-        like = Likes.objects.create(user=user, post=post)
+        Likes.objects.filter(user=user, post=post).delete()
         current_likes = current_likes - 1
 
     post.likes = current_likes
     post.save()
-
+    return HttpResponseRedirect(reverse('postdetails', args=[post_id]))
 
 @login_required
 def favorite(request, post_id):

@@ -16,7 +16,7 @@ def Inbox(request):
     active_direct = None
     directs = None
     if messages:
-        message = message[0]
+        message = messages[0]
         active_direct = message['user'].username
         directs = Message.objects.filter(user=request.user, recipient=message['user'])
         directs.update(is_read=True)
@@ -34,10 +34,10 @@ def Inbox(request):
 
 @login_required
 def UserSearch(request):
-    query = request.GET.get('q')
+    query = request.GET.get("q")
     context = {}
     if query:
-        users = User.objects.filter(Q(username_icontains=query))
+        users = User.objects.filter(Q(username__icontains=query))
         paginator = Paginator(users, 6)
         page_number = request.GET.get('page')
         users_paginator = paginator.get_page(page_number)

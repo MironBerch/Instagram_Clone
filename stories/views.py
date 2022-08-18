@@ -14,13 +14,12 @@ def NewStory(request):
         form = NewStoryForm(request.POST, request.FILES)
         if form.is_valid():
             file = request.FILES.get('content')
-            caption = form.changed_data.get('caption')
+            caption = form.cleaned_data.get('caption')
             story = Story(user=user, content=file, caption=caption)
             story.save()
             return redirect('index')
     else:
         form = NewStoryForm()
-
     context = {
         'form': form,
     }
