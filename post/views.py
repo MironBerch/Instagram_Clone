@@ -1,3 +1,4 @@
+from ast import excepthandler
 from xml.etree.ElementTree import Comment
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, HttpResponseRedirect
@@ -32,6 +33,15 @@ def index(request):
 
 def PostDetails(request, post_id):
     post = get_object_or_404(Post, id=post_id)
+    #try:
+    #    post_items = Post.objects.filter(id=post_id).all()
+    #except:
+    #    post_items = None
+    #try:
+    #    content = post.objects.all(post=post)
+    #except:
+    #    content = None
+    post_items = Post.objects.filter(post=post).all()
     user = request.user
     profile = Profile.objects.get(user=user)
     favorited = False
@@ -54,6 +64,9 @@ def PostDetails(request, post_id):
     template = loader.get_template('post_detail.html')
     context = {
         'post': post,
+        #'content': content,
+        #'post_items': post_items,
+        'post_items': post_items,
         'favorited': favorited,
         'profile': profile,
         'form': form,

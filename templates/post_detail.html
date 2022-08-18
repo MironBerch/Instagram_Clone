@@ -10,6 +10,7 @@
     {% for cont in post.content.all %}
       <div class="mySlides fade">
         {% if cont.file.name|slice:"-3:" == 'jpg' or cont.file.name|slice:"-3:" == 'png' %}
+        {% if post_item.content.first.file.name|slice:"-3:" == 'jpg' or post_item.content.first.file.name|slice:"-3:" == 'png' %}
           <figure class="image is-4by3">
             <a href="{{ cont.get_absolute_url }}">
               <img src="{{ cont.file.url }}" alt="Placeholder image">
@@ -23,7 +24,8 @@
           </a>
         {% endif %}
       </div>
-    {% endfor %
+    {% endfor %}
+
         <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
         <a class="next" onclick="plusSlides(1)">&#10095;</a>
     </div>
