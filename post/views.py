@@ -26,8 +26,8 @@ def index(request):
         'post_items': post_items,
         'post_items': stories,
     }
-    return HttpResponse(template.render(context))
-    #return render(request, 'index.html', context)
+    #return HttpResponse(template.render(context, request))
+    return render(request, 'index.html', context)
 
 
 def PostDetails(request, post_id):

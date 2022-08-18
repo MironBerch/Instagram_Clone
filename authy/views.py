@@ -1,3 +1,4 @@
+import profile
 from django.urls import resolve
 from django.shortcuts import render, redirect, get_object_or_404
 from authy.forms import SignupForm, ChangePasswordForm, EditProfileForm
@@ -23,22 +24,14 @@ def UserProfile(request, username):
 
 	else:
 		posts = profile.favorites.all()
-
-	#Profile info box
 	posts_count = Post.objects.filter(user=user).count()
 	following_count = Follow.objects.filter(follower=user).count()
 	followers_count = Follow.objects.filter(following=user).count()
-
-	#follow status
 	follow_status = Follow.objects.filter(following=user, follower=request.user).exists()
-
-	#Pagination
 	paginator = Paginator(posts, 8)
 	page_number = request.GET.get('page')
 	posts_paginator = paginator.get_page(page_number)
-
 	template = loader.get_template('profile.html')
-
 	context = {
 		'posts': posts_paginator,
 		'profile':profile,
@@ -48,28 +41,20 @@ def UserProfile(request, username):
 		'follow_status':follow_status,
 		'url_name':url_name,
 	}
-
 	return HttpResponse(template.render(context, request))
 
 
 def UserProfileFavorites(request, username):
 	user = get_object_or_404(User, username=username)
 	profile = Profile.objects.get(user=user)
-	
 	posts = profile.favorites.all()
-
-	#Profile info box
 	posts_count = Post.objects.filter(user=user).count()
 	following_count = Follow.objects.filter(follower=user).count()
 	followers_count = Follow.objects.filter(following=user).count()
-
-	#Pagination
 	paginator = Paginator(posts, 8)
 	page_number = request.GET.get('page')
 	posts_paginator = paginator.get_page(page_number)
-
 	template = loader.get_template('profile_favorite.html')
-
 	context = {
 		'posts': posts_paginator,
 		'profile':profile,
@@ -77,7 +62,6 @@ def UserProfileFavorites(request, username):
 		'followers_count':followers_count,
 		'posts_count':posts_count,
 	}
-
 	return HttpResponse(template.render(context, request))
 
 
@@ -92,11 +76,9 @@ def Signup(request):
 			return redirect('index')
 	else:
 		form = SignupForm()
-	
 	context = {
 		'form':form,
 	}
-
 	return render(request, 'signup.html', context)
 
 

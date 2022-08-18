@@ -27,10 +27,6 @@
             <i class="material-icons">home</i>
             Home
           </a>
-          <a class="navbar-item">
-            <i class="material-icons">explore</i>
-            Explore
-          </a>
           <a href="{% url 'show-notifications' %}" class="navbar-item">
             <i class="material-icons">notifications</i>
             Notifications
@@ -45,7 +41,7 @@
             <span class="badge">{{ directs_count }}</span>
             {% endif %}
           </a>
-          <a href="{% url 'profile' request.user.username %}" class="navbar-item">
+          <a href="{% url 'profile' request.user %}" class="navbar-item">
             <i class="material-icons">face</i>
             Profile - <strong>{{ request.user }}</strong>
           </a>
@@ -62,15 +58,6 @@
               Settings
             </a>
             <div class="navbar-dropdown">
-              <a class="navbar-item">
-                Change password
-              </a>
-              <a class="navbar-item">
-                Contact
-              </a>
-              <a class="navbar-item">
-                Report an issue
-              </a>
               <hr class="navbar-divider">
               <a href="{% url 'logout' %}" class="navbar-item">
                 Log out
