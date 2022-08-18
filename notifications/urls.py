@@ -4,5 +4,5 @@ from .views import ShowNOtifications, DeleteNotification
 
 urlpatterns = [
     path('', ShowNOtifications, name='show-notifications'),
-    path('<noti_id>/delete', DeleteNotification, name='delete-notifications')
+    path('<noti_id>/delete', DeleteNotification, name='delete-notification')
 ]

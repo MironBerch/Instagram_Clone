@@ -41,7 +41,7 @@ def PostDetails(request, post_id):
     #    content = post.objects.all(post=post)
     #except:
     #    content = None
-    post_items = Post.objects.filter(post=post).all()
+    post_items = Post.objects.filter(id=post_id).all()
     user = request.user
     profile = Profile.objects.get(user=user)
     favorited = False
