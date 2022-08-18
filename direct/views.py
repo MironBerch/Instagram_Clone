@@ -12,7 +12,7 @@ from django.core.paginator import Paginator
 
 @login_required
 def Inbox(request):
-    messages = Message.get_message(user=request.user)
+    messages = Message.get_messages(user=request.user)
     active_direct = None
     directs = None
     if messages:

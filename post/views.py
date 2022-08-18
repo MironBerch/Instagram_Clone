@@ -51,9 +51,7 @@ def PostDetails(request, post_id):
             return HttpResponseRedirect(reverse('postdetails', args=[post_id]))
     else:
         form = CommentForm()
-
     template = loader.get_template('post_detail.html')
-
     context = {
         'post': post,
         'favorited': favorited,
@@ -61,41 +59,39 @@ def PostDetails(request, post_id):
         'form': form,
         'comments': comments,
     }
-
     return HttpResponse(template.render(context, request))
 
 
 @login_required
 def NewPost(request):
-    user = request.user
-    tags_objects = []
-    files_objects = []
-    if request.method == 'POST':
-        form = NewPostForm(request.POST, request.FILES)
-        if form.is_valid():
-            files = request.FILES.getlist('content')
-            caption = form.cleaned_data.get('caption')
-            tags_form = form.cleaned_data.get('tags')
-            tags_list = list(tags_form.split(','))
-            for tag in tags_list:
-                t, created = Tag.objects.get_or_create(title=tag)
-                tags_objects.append(t)
-            for file in files:
-                file_instance = PostFileContent(file=file, user=user)
-                file_instance.save()
-                files_objects.append(file_instance)
-
-            p, created = Post.objects.get_or_create(caption=caption, user=user)
-            p.tags.set(tags_objects)
-            p.content.set(files_objects)
-            p.save()
-            return redirect('index')
-    else:
-        form = NewPostForm
-    context = {
-        'form': form,
-    }
-    return render(request, 'newpost.html', context)
+	user = request.user
+	tags_objs = []
+	files_objs = []
+	if request.method == 'POST':
+		form = NewPostForm(request.POST, request.FILES)
+		if form.is_valid():
+			files = request.FILES.getlist('content')
+			caption = form.cleaned_data.get('caption')
+			tags_form = form.cleaned_data.get('tags')
+			tags_list = list(tags_form.split(','))
+			for tag in tags_list:
+				t, created = Tag.objects.get_or_create(title=tag)
+				tags_objs.append(t)
+			for file in files:
+				file_instance = PostFileContent(file=file, user=user)
+				file_instance.save()
+				files_objs.append(file_instance)
+			p, created = Post.objects.get_or_create(caption=caption, user=user)
+			p.tags.set(tags_objs)
+			p.content.set(files_objs)
+			p.save()
+			return redirect('index')
+	else:
+		form = NewPostForm()
+	context = {
+		'form':form,
+	}
+	return render(request, 'newpost.html', context)
 
 
 def tags(request, tag_slug):
