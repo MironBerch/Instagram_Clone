@@ -76,13 +76,13 @@ class ChangePasswordForm(forms.ModelForm):
 		return self.cleaned_data
 
 
-class EditProfileForm(forms.ModelForm):
-	picture = forms.ImageField(required=False)
-	first_name = forms.CharField(widget=forms.TextInput(), max_length=50, required=False)
-	last_name = forms.CharField(widget=forms.TextInput(), max_length=50, required=False)
-	url = forms.URLField(widget=forms.TextInput(), max_length=60, required=False)
-	profile_info = forms.CharField(widget=forms.TextInput(), max_length=260, required=False)
-
-	class Meta:
-		model = Profile
-		fields = ('picture', 'first_name', 'last_name', 'url', 'profile_info')
+#class EditProfileForm(forms.ModelForm):
+#	picture = forms.ImageField(required=False)
+#	first_name = forms.CharField(widget=forms.TextInput(), max_length=50, required=False)
+#	last_name = forms.CharField(widget=forms.TextInput(), max_length=50, required=False)
+#	url = forms.URLField(widget=forms.TextInput(), max_length=60, required=False)
+#	profile_info = forms.CharField(widget=forms.TextInput(), max_length=260, required=False)
+#
+#	class Meta:
+#		model = Profile
+#		fields = ('picture', 'first_name', 'last_name', 'url', 'profile_info')

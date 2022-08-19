@@ -1,7 +1,7 @@
 import profile
 from django.urls import resolve
 from django.shortcuts import render, redirect, get_object_or_404
-from authy.forms import SignupForm, ChangePasswordForm, EditProfileForm
+from authy.forms import SignupForm, ChangePasswordForm
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import update_session_auth_hash
@@ -12,6 +12,7 @@ from django.template import loader
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.core.paginator import Paginator
+from django.http import Http404
 
 
 def UserProfile(request, username):
@@ -95,7 +96,6 @@ def PasswordChange(request):
 			return redirect('change_password_done')
 	else:
 		form = ChangePasswordForm(instance=user)
-
 	context = {
 		'form':form,
 	}
@@ -110,25 +110,112 @@ def PasswordChangeDone(request):
 def EditProfile(request):
 	user = request.user.id
 	profile = Profile.objects.get(user__id=user)
-
-	if request.method == 'POST':
-		form = EditProfileForm(request.POST, request.FILES)
-		if form.is_valid():
-			profile.picture = form.cleaned_data.get('picture')
-			profile.first_name = form.cleaned_data.get('first_name')
-			profile.last_name = form.cleaned_data.get('last_name')
-			profile.url = form.cleaned_data.get('url')
-			profile.profile_info = form.cleaned_data.get('profile_info')
-			profile.save()
-			return redirect('index')
-	else:
-		form = EditProfileForm()
-
+	try:
+		user_profile = Profile.objects.get(user=request.user)
+	except Profile.DoesNotExist:
+		raise Http404
 	context = {
-		'form':form,
-	}
+        'user_profile': user_profile
+    }
+	if request.method == 'POST':
+		if request.FILES.get('picture') == None:
+			picture = user_profile.picture
+			first_name = request.POST['first_name']
+			last_name = request.POST['last_name']
+			url = request.POST['url']
+			profile_info = request.POST['profile_info']
 
+			user_profile.picture = picture
+			user_profile.first_name = first_name
+			user_profile.last_name = last_name
+			user_profile.url = url
+			user_profile.profile_info = profile_info
+			user_profile.save()
+		if request.FILES.get('picture') != None:
+			picture = request.FILES.get('picture')
+			first_name = request.POST['first_name']
+			last_name = request.POST['last_name']
+			url = request.POST['url']
+			profile_info = request.POST['profile_info']
+			user_profile.picture = picture
+			user_profile.first_name = first_name
+			user_profile.last_name = last_name
+			user_profile.url = url
+			user_profile.profile_info = profile_info
+			user_profile.save()
+
+		#messages.info(request, 'Settings save')
+		return redirect('edit-profile')
 	return render(request, 'edit_profile.html', context)
+
+	#if request.method == 'POST':
+		#form = EditProfileForm(request.POST, request.FILES)
+		#if form.is_valid():
+			#if request.FILES.get('avatar') == None:
+			#	profile.picture = form.cleaned_data.get('picture')
+			#	profile.first_name = form.cleaned_data.get('first_name')
+			#	profile.last_name = form.cleaned_data.get('last_name')
+			#	profile.url = form.cleaned_data.get('url')
+			#	profile.profile_info = form.cleaned_data.get('profile_info')
+			#	profile.avatar = avatar
+			#	profile.about = about
+			#	profile.status = status
+			#	profile.save()
+			#if request.FILES.get('avatar') != None:
+			#		avatar = request.FILES.get('avatar')
+			#		about = request.POST['about']
+			#		status = request.POST['status']
+			#		profile.avatar = avatar
+			#		profile.about = about
+			#		profile.status = status
+			#		profile.save()
+			#if form.cleaned_data.get('picture') == None:
+			#	profile.picture = profile.picture
+			#	profile.first_name = form.cleaned_data.get('first_name')
+			#	profile.last_name = form.cleaned_data.get('last_name')
+			#	profile.url = form.cleaned_data.get('url')
+			#	profile.profile_info = form.cleaned_data.get('profile_info')
+			#	profile.save()
+			#if form.cleaned_data.get('picture') != None:
+			#	profile.picture = form.cleaned_data.get('picture')
+			#	profile.first_name = form.cleaned_data.get('first_name')
+			#	profile.last_name = form.cleaned_data.get('last_name')
+			#	profile.url = form.cleaned_data.get('url')
+			#	profile.profile_info = form.cleaned_data.get('profile_info')
+			#	profile.save()
+			#profile.picture = form.cleaned_data.get('picture')
+			#profile.first_name = form.cleaned_data.get('first_name')
+			#profile.last_name = form.cleaned_data.get('last_name')
+			#profile.url = form.cleaned_data.get('url')
+			#profile.profile_info = form.cleaned_data.get('profile_info')
+			#profile.save()
+			#if form.cleaned_data.get('picture') == None:
+			#	profile.picture = profile.picture
+			#if form.cleaned_data.get('picture') != None:
+			#	profile.picture = form.cleaned_data.get('picture')
+			#if form.cleaned_data.get('first_name') == None:
+			#	profile.first_name = profile.first_name
+			#if form.cleaned_data.get('first_name') != None:
+			#	profile.first_name = form.cleaned_data.get('first_name')
+			#if form.cleaned_data.get('last_name') == None:
+			#	profile.last_name = profile.last_name
+			#if form.cleaned_data.get('last_name') != None:
+			#	profile.last_name = form.cleaned_data.get('last_name')
+			#if form.cleaned_data.get('url') == None:
+			#	profile.url = profile.url
+			#if form.cleaned_data.get('url') != None:
+			#	profile.url = form.cleaned_data.get('url')
+			#if form.cleaned_data.get('profile_info') == None:
+			#	profile.profile_info = profile.profile_info
+			#if form.cleaned_data.get('profile_info') != None:
+			#	profile.profile_info = form.cleaned_data.get('profile_info')
+	#		return redirect('index')
+	#else:
+	#	#form = EditProfileForm()
+
+	#context = {
+	#	'form':form,
+	#}
 
 
 

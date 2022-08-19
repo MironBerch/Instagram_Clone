@@ -11,6 +11,7 @@
         {% endif %}
       </figure>
   </div>
+  <span>{{ profile.first_name }}|{{ profile.last_name }}|{{ profile.profile_info }}|{{ profile.created }}|{{ profile.url }}</span>
    <div class="media-content">
     <div class="content">
       <h1 style="font-weight: bold;" class="title is-1">{% if profile.first_name %}{{ profile.first_name }} {{ profile.last_name }} {% endif %}</h1>
