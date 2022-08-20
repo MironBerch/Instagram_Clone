@@ -28,7 +28,6 @@ class StoryStream(models.Model):
     def __str__(self):
         return self.following.username + ' - ' + str(self.date)
 
-
     def add_post(sender, instance, *args, **kwargs):
         new_story = instance
         user = new_story.user
