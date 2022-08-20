@@ -3,13 +3,17 @@
 ## Technology stack:
 HTML, CSS, Python 3, Django Framework 4.0, Celery
 ## Steps to be followed for first time use
+- Run this command - it  download dependencies
+```
+pip install -r requirements.txt
+```
 - Run these commands - they create database
 ```
 python manage.py migrate
 python manage.py makemigrations
 python manage.py migrate
 ```
-- Run these commands - to create superuser
+- Run this command - to create superuser
 ```
 python manage.py createsuperuser
 ```
