@@ -1,7 +1,7 @@
 # Instagram Clone [![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
 
 ## Technology stack:
-HTML, CSS, Python 3, Django Framework 4.0
+HTML, CSS, Python 3, Django Framework 4.0, Celery
 ## Steps to be followed for first time use
 - Run these commands - they create database
 ```
