@@ -23,7 +23,7 @@ def NewStory(request):
     context = {
         'form': form,
     }
-    return render(request, 'newstory.html', context)
+    return render(request, 'stories/new.html', context)
 
 
 def ShowMedia(request, stream_id):

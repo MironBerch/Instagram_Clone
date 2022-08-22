@@ -1,4 +1,3 @@
-from ast import excepthandler
 from xml.etree.ElementTree import Comment
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, HttpResponseRedirect
@@ -28,19 +27,10 @@ def index(request):
         'stories': stories,
     }
     return HttpResponse(template.render(context, request))
-    #return render(request, 'index.html', context)
 
 
 def PostDetails(request, post_id):
     post = get_object_or_404(Post, id=post_id)
-    #try:
-    #    post_items = Post.objects.filter(id=post_id).all()
-    #except:
-    #    post_items = None
-    #try:
-    #    content = post.objects.all(post=post)
-    #except:
-    #    content = None
     post_items = Post.objects.filter(id=post_id).all()
     user = request.user
     profile = Profile.objects.get(user=user)
@@ -61,11 +51,9 @@ def PostDetails(request, post_id):
             return HttpResponseRedirect(reverse('postdetails', args=[post_id]))
     else:
         form = CommentForm()
-    template = loader.get_template('post_detail.html')
+    template = loader.get_template('post/detail.html')
     context = {
         'post': post,
-        #'content': content,
-        #'post_items': post_items,
         'post_items': post_items,
         'favorited': favorited,
         'profile': profile,
@@ -104,13 +92,13 @@ def NewPost(request):
 	context = {
 		'form':form,
 	}
-	return render(request, 'newpost.html', context)
+	return render(request, 'post/new.html', context)
 
 
 def tags(request, tag_slug):
     tag = get_object_or_404(Tag, slug=tag_slug)
     posts = Post.objects.filter(tags=tag).order_by('-posted')
-    template = loader.get_template('tag.html')
+    template = loader.get_template('post/tag.html')
     context = {
         'posts': posts,
         'tag': tag,
@@ -134,6 +122,7 @@ def like(request, post_id):
     post.likes = current_likes
     post.save()
     return HttpResponseRedirect(reverse('postdetails', args=[post_id]))
+
 
 @login_required
 def favorite(request, post_id):
