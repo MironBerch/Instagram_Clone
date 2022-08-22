@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect
 from django.template import loader
 from django.http import HttpResponse
 from .models import Notification
@@ -8,7 +8,7 @@ def ShowNOtifications(request):
     user = request.user
     notifications = Notification.objects.filter(user=user).order_by('-date')
     Notification.objects.filter(user=user, is_seen=False).update(is_seen=True)
-    template = loader.get_template('notifications.html')
+    template = loader.get_template('notifications/show.html')
     context = {
         'notifications': notifications,
     }

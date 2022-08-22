@@ -5,9 +5,9 @@
     <div class="media-left">
         <figure class="image is-256x256">
           {% if profile.picture %}
-          <img class="is-rounded" src="{{ profile.picture.url }}">
+          <img alt="" class="is-rounded" src="{{ profile.picture.url }}">
           {% else %}
-          <img class="is-rounded" src="https://bulma.io/images/placeholders/256x256.png">
+          <img alt="" class="is-rounded" src="https://bulma.io/images/placeholders/256x256.png">
           {% endif %}
         </figure>
     </div>
@@ -78,7 +78,7 @@
   <div class="column is-one-quarter">
   <div class="box">
     <figure class="image is-256x256">
-      <a href="{{ post.get_absolute_url }}"><img src="{{ post.picture.url }}"></a>
+      <a href="{{ post.get_absolute_url }}"><img src="{{ post.picture.url }}" alt=""></a>
     </figure>
   </div>
   </div>

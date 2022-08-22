@@ -1,8 +1,7 @@
-from email import message
 from re import template
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect
 from django.template import loader, RequestContext
-from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest
+from django.http import HttpResponse, HttpResponseBadRequest
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from direct.models import Message

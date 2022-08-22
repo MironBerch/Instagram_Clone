@@ -1,4 +1,3 @@
-import profile
 from django.urls import resolve
 from django.shortcuts import render, redirect, get_object_or_404
 from authy.forms import SignupForm, ChangePasswordForm
@@ -32,7 +31,7 @@ def UserProfile(request, username):
 	paginator = Paginator(posts, 8)
 	page_number = request.GET.get('page')
 	posts_paginator = paginator.get_page(page_number)
-	template = loader.get_template('profile.html')
+	template = loader.get_template('profile/view.html')
 	context = {
 		'posts': posts_paginator,
 		'profile':profile,
@@ -55,7 +54,7 @@ def UserProfileFavorites(request, username):
 	paginator = Paginator(posts, 8)
 	page_number = request.GET.get('page')
 	posts_paginator = paginator.get_page(page_number)
-	template = loader.get_template('profile_favorite.html')
+	template = loader.get_template('profile/favorite.html')
 	context = {
 		'posts': posts_paginator,
 		'profile':profile,
@@ -80,7 +79,7 @@ def Signup(request):
 	context = {
 		'form':form,
 	}
-	return render(request, 'signup.html', context)
+	return render(request, 'authy/signup.html', context)
 
 
 @login_required
@@ -99,11 +98,11 @@ def PasswordChange(request):
 	context = {
 		'form':form,
 	}
-	return render(request, 'change_password.html', context)
+	return render(request, 'authy/change_password.html', context)
 
 
 def PasswordChangeDone(request):
-	return render(request, 'change_password_done.html')
+	return render(request, 'authy/change_password_done.html')
 
 
 @login_required
@@ -144,79 +143,8 @@ def EditProfile(request):
 			user_profile.profile_info = profile_info
 			user_profile.save()
 
-		#messages.info(request, 'Settings save')
 		return redirect('edit-profile')
-	return render(request, 'edit_profile.html', context)
-
-	#if request.method == 'POST':
-		#form = EditProfileForm(request.POST, request.FILES)
-		#if form.is_valid():
-			#if request.FILES.get('avatar') == None:
-			#	profile.picture = form.cleaned_data.get('picture')
-			#	profile.first_name = form.cleaned_data.get('first_name')
-			#	profile.last_name = form.cleaned_data.get('last_name')
-			#	profile.url = form.cleaned_data.get('url')
-			#	profile.profile_info = form.cleaned_data.get('profile_info')
-			#	profile.avatar = avatar
-			#	profile.about = about
-			#	profile.status = status
-			#	profile.save()
-			#if request.FILES.get('avatar') != None:
-			#		avatar = request.FILES.get('avatar')
-			#		about = request.POST['about']
-			#		status = request.POST['status']
-			#		profile.avatar = avatar
-			#		profile.about = about
-			#		profile.status = status
-			#		profile.save()
-			#if form.cleaned_data.get('picture') == None:
-			#	profile.picture = profile.picture
-			#	profile.first_name = form.cleaned_data.get('first_name')
-			#	profile.last_name = form.cleaned_data.get('last_name')
-			#	profile.url = form.cleaned_data.get('url')
-			#	profile.profile_info = form.cleaned_data.get('profile_info')
-			#	profile.save()
-			#if form.cleaned_data.get('picture') != None:
-			#	profile.picture = form.cleaned_data.get('picture')
-			#	profile.first_name = form.cleaned_data.get('first_name')
-			#	profile.last_name = form.cleaned_data.get('last_name')
-			#	profile.url = form.cleaned_data.get('url')
-			#	profile.profile_info = form.cleaned_data.get('profile_info')
-			#	profile.save()
-			#profile.picture = form.cleaned_data.get('picture')
-			#profile.first_name = form.cleaned_data.get('first_name')
-			#profile.last_name = form.cleaned_data.get('last_name')
-			#profile.url = form.cleaned_data.get('url')
-			#profile.profile_info = form.cleaned_data.get('profile_info')
-			#profile.save()
-			#if form.cleaned_data.get('picture') == None:
-			#	profile.picture = profile.picture
-			#if form.cleaned_data.get('picture') != None:
-			#	profile.picture = form.cleaned_data.get('picture')
-			#if form.cleaned_data.get('first_name') == None:
-			#	profile.first_name = profile.first_name
-			#if form.cleaned_data.get('first_name') != None:
-			#	profile.first_name = form.cleaned_data.get('first_name')
-			#if form.cleaned_data.get('last_name') == None:
-			#	profile.last_name = profile.last_name
-			#if form.cleaned_data.get('last_name') != None:
-			#	profile.last_name = form.cleaned_data.get('last_name')
-			#if form.cleaned_data.get('url') == None:
-			#	profile.url = profile.url
-			#if form.cleaned_data.get('url') != None:
-			#	profile.url = form.cleaned_data.get('url')
-			#if form.cleaned_data.get('profile_info') == None:
-			#	profile.profile_info = profile.profile_info
-			#if form.cleaned_data.get('profile_info') != None:
-			#	profile.profile_info = form.cleaned_data.get('profile_info')
-	#		return redirect('index')
-	#else:
-	#	#form = EditProfileForm()
-
-	#context = {
-	#	'form':form,
-	#}
-
+	return render(request, 'profile/edit.html', context)
 
 
 @login_required
