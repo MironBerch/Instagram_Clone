@@ -10,7 +10,6 @@ urlpatterns = [
     path('user/', include('authy.urls')),
     path('post/', include('post.urls')),
     path('direct/', include('direct.urls')),
-    path('stories/', include('stories.urls')),
     path('notifications/', include('notifications.urls')),
     path('<username>/', UserProfile, name='profile'),
     path('<username>/saved', UserProfile, name='profilefavorites'),

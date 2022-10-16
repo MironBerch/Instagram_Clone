@@ -25,7 +25,6 @@ INSTALLED_APPS = [
     'direct',
     'notifications',
     'post',
-    'stories',
 ]
 
 MIDDLEWARE = [
