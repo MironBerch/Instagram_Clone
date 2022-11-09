@@ -10,7 +10,7 @@ from django.core.paginator import Paginator
 
 
 @login_required
-def Inbox(request):
+def inbox(request):
     messages = Message.get_messages(user=request.user)
     active_direct = None
     directs = None
@@ -32,7 +32,7 @@ def Inbox(request):
 
 
 @login_required
-def UserSearch(request):
+def user_search(request):
     query = request.GET.get("q")
     context = {}
     if query:
@@ -48,7 +48,7 @@ def UserSearch(request):
 
 
 @login_required
-def Directs(request, username):
+def directs(request, username):
     user = request.user
     messages = Message.get_messages(user=user)
     active_direct = username
@@ -68,7 +68,7 @@ def Directs(request, username):
 
 
 @login_required
-def NewConversation(request, username):
+def new_conversation(request, username):
     from_user = request.user
     body = ''
     try:
@@ -81,7 +81,7 @@ def NewConversation(request, username):
 
 
 @login_required
-def SendDirect(request):
+def send_direct(request):
     from_user = request.user
     to_user_username = request.POST.get('to_user')
     body = request.POST.get('body')
@@ -94,7 +94,7 @@ def SendDirect(request):
         HttpResponseBadRequest()
 
 
-def checkDirects(request):
+def check_directs(request):
 	directs_count = 0
 	if request.user.is_authenticated:
 		directs_count = Message.objects.filter(user=request.user, is_read=False).count()

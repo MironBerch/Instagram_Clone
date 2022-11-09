@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from .models import Notification
 
 
-def ShowNOtifications(request):
+def show_notifications(request):
     user = request.user
     notifications = Notification.objects.filter(user=user).order_by('-date')
     Notification.objects.filter(user=user, is_seen=False).update(is_seen=True)
@@ -15,7 +15,7 @@ def ShowNOtifications(request):
     return HttpResponse(template.render(context, request))
 
 
-def DeleteNotification(request, noti_id):
+def delete_notification(request, noti_id):
     user = request.user
     Notification.objects.filter(id=noti_id, user=user).delete()
     return redirect('show-notifications')

@@ -1,9 +1,8 @@
 from django.urls import resolve
 from django.shortcuts import render, redirect, get_object_or_404
-from authy.forms import SignupForm, ChangePasswordForm
+from authy.forms import SignupForm
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import update_session_auth_hash
 from authy.models import Profile
 from post.models import Post, Follow, Stream
 from django.db import transaction
@@ -65,7 +64,7 @@ def UserProfileFavorites(request, username):
 	return HttpResponse(template.render(context, request))
 
 
-def Signup(request):
+def signup(request):
 	if request.method == 'POST':
 		form = SignupForm(request.POST)
 		if form.is_valid():
@@ -83,30 +82,7 @@ def Signup(request):
 
 
 @login_required
-def PasswordChange(request):
-	user = request.user
-	if request.method == 'POST':
-		form = ChangePasswordForm(request.POST)
-		if form.is_valid():
-			new_password = form.cleaned_data.get('new_password')
-			user.set_password(new_password)
-			user.save()
-			update_session_auth_hash(request, user)
-			return redirect('change_password_done')
-	else:
-		form = ChangePasswordForm(instance=user)
-	context = {
-		'form':form,
-	}
-	return render(request, 'authy/change_password.html', context)
-
-
-def PasswordChangeDone(request):
-	return render(request, 'authy/change_password_done.html')
-
-
-@login_required
-def EditProfile(request):
+def edit_profile(request):
 	user = request.user.id
 	profile = Profile.objects.get(user__id=user)
 	try:

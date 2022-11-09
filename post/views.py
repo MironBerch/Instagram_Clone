@@ -4,7 +4,6 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from post.models import Stream, Post, Tag, Likes, PostFileContent
 from post.forms import NewPostForm
-from stories.models import Story, StoryStream
 from comment.models import Comment
 from comment.forms import CommentForm
 from django.contrib.auth.decorators import login_required
@@ -16,7 +15,6 @@ from authy.models import Profile
 def index(request):
     user = request.user
     posts = Stream.objects.filter(user=user)
-    stories = StoryStream.objects.filter(user=user)
     group_ids = []
     for post in posts:
         group_ids.append(post.post_id)
@@ -24,12 +22,11 @@ def index(request):
     template = loader.get_template('index.html')
     context = {
         'post_items': post_items,
-        'stories': stories,
     }
     return HttpResponse(template.render(context, request))
 
 
-def PostDetails(request, post_id):
+def post_details(request, post_id):
     post = get_object_or_404(Post, id=post_id)
     post_items = Post.objects.filter(id=post_id).all()
     user = request.user
@@ -64,7 +61,7 @@ def PostDetails(request, post_id):
 
 
 @login_required
-def NewPost(request):
+def new_post(request):
 	user = request.user
 	tags_objs = []
 	files_objs = []

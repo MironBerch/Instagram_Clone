@@ -1,11 +1,11 @@
 from django.urls import path
-from .views import Inbox, UserSearch, Directs, NewConversation, SendDirect
+from .views import inbox, user_search, directs, new_conversation, send_direct
 
 
 urlpatterns = [
-    path('', Inbox, name='inbox'),
-    path('directors/<username>', Directs, name='directs'),
-    path('new/', UserSearch, name='usersearch'),
-    path('new/<username>', NewConversation, name='newconversation'),
-    path('send/', SendDirect, name='send_direct'),
+    path('', inbox, name='inbox'),
+    path('directors/<username>', directs, name='directs'),
+    path('new/', user_search, name='usersearch'),
+    path('new/<username>', new_conversation, name='newconversation'),
+    path('send/', send_direct, name='send_direct'),
 ]
