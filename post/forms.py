@@ -1,6 +1,5 @@
 from django import forms
 from post.models import Post
-from django.forms import ClearableFileInput
 
 
 class NewPostForm(forms.ModelForm):

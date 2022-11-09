@@ -1,6 +1,5 @@
-from re import template
 from django.shortcuts import redirect
-from django.template import loader, RequestContext
+from django.template import loader
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
