@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Hello Bulma!</title>
+    <title>Login</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
   </head>
@@ -21,20 +21,12 @@
             <div class="field">
               <p class="control has-icons-left">
               <label class="label is-medium">Username</label>
-                {{ form.username }}
-                <span class="icon is-small is-left">
-            <i class="fas fa-lock"></i>
-          </span>
-        </p>
+                {{ form.username }}</p>
           </div>
               <div class="field">
               <p class="control has-icons-left">
               <label class="label is-medium">Password</label>
-                {{ form.password }}
-                <span class="icon is-small is-left">
-            <i class="fas fa-lock"></i>
-          </span>
-        </p>
+                {{ form.password }}</p>
           </div>
       {% if form.errors %}
       <div class="row">
@@ -44,11 +36,7 @@
       </div>
       {% endif %}
       <div class="field">
-      <p class="control">
-        <button type="submit" value="login" class="button is-success">
-          Login
-        </button>
-      </p>
+      <p class="control"><button type="submit" value="login" class="button is-success">Login</button></p>
     </div>
     <input type="hidden" name="next" value="{{ next }}">
     <a href="{% url 'signup' %}" class="button is-info">Create an account</a>
